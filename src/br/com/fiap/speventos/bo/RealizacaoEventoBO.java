@@ -6,6 +6,8 @@ import br.com.fiap.speventos.beans.RealizacaoEvento;
 import br.com.fiap.speventos.dao.RealizacaoEventoDAO;
 
 
+//TESTE GITHUB
+
 /**
  *  Classe para validar e padronizar dados para a tabela T_SGE_REALIZACAO_EVENTO
  *  @version 1.0
