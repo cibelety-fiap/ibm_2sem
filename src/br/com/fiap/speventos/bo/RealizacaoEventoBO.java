@@ -1,7 +1,10 @@
 package br.com.fiap.speventos.bo;
 
+import java.sql.Date;
 import java.util.List;
 
+import br.com.fiap.speventos.beans.Evento;
+import br.com.fiap.speventos.beans.Local;
 import br.com.fiap.speventos.beans.RealizacaoEvento;
 import br.com.fiap.speventos.dao.RealizacaoEventoDAO;
 
@@ -20,7 +23,7 @@ import br.com.fiap.speventos.dao.RealizacaoEventoDAO;
 public class RealizacaoEventoBO {
 
 	/**
-	 * Método para verificar regras de negócio, validações e padronizações 
+	 * Metodo para verificar regras de negocio, validacoes e padronizacoes 
 	 * relacionadas à inserção de uma nova RealizacaoEvento 
 	 * Regras de negócio validadas:
 	 * tamanho do nome do evento (etc)
@@ -29,10 +32,28 @@ public class RealizacaoEventoBO {
 	 * @return uma String com a quantidade de registros inseridos ou o erro ocorrido
 	 * @throws Exception - Chamada da exceção checked SQLException (???)
 	 */
+	
+/*	private int codigoRealizacaoEvento;
+	private Evento evento;
+	private Local local;
+	private Date dataHoraInicio;
+	private Date dataHoraTermino;
+	
+	
+*/
 	public String novaRealizacaoEvento(RealizacaoEvento realizacaoEvento) throws Exception {
 
 		// FAZER AS RNs, VALIDACOES E PADRONIZACOES
 		
+		if (realizacaoEvento.getCodigoRealizacaoEvento() < 1) {
+			return "Codigo da realizacao do evento invalido";
+		}
+			
+		if (RealizacaoEvento.getDataHoraIncio().isEmpty() || evento.getNome().length() > 80) {
+			return "Data inv�lida";
+		}
+		
+	
 		RealizacaoEventoDAO dao = new RealizacaoEventoDAO();
 
 		RealizacaoEvento realizacaoEventoCodRepetido = dao
@@ -42,6 +63,7 @@ public class RealizacaoEventoBO {
 			return "Realizacao de evento ja existe!";
 		}
 
+// Chama o LocalBO
 		String localValido = LocalBO.novoLocal(realizacaoEvento.getLocal());
 		String eventoValido = EventoBO.novoEvento(realizacaoEvento.getEvento());
 
@@ -49,6 +71,7 @@ public class RealizacaoEventoBO {
 
 		if ((localValido.equals("OK") || localValido.equals(null))
 				&& (eventoValido.equals("OK") || eventoValido.equals(null))) {
+			
 			retorno = dao.cadastrar(realizacaoEvento) + "registro inserido";
 		}
 
